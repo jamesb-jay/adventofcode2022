@@ -2,12 +2,23 @@
 
 #define _FILEIO_H
 
+typedef struct LoadedFile
+{
+    FILE file;
+    char **lineArray;
+    int lineCount;
+} LoadedFile;
+
+/* Check if a file is accessible */
+int checkFileReadOK(const char* filepath);
+
 /* Count the number of lines in a file */
 int countFileLines(FILE *f);
 
-/* Load an array of strings containing each line of the file. */
-char **loadFileStrings(FILE *f, int maxLineSize);
+/* Load a file */
+LoadedFile loadFile(FILE *file, int maxLineSize);
 
-void closeFileStrings(FILE *f);
+/* Unload a file */
+void closeFile(LoadedFile file);
 
 #endif
