@@ -2,6 +2,7 @@
 
 #include "headers/fileio.h"
 
+
 int main(int argc, char **argv)
 {
 	FILE *inputFile;
@@ -24,10 +25,35 @@ int main(int argc, char **argv)
     inputFile = fopen(argv[1], "r");
     input = loadFile(inputFile, 16);
 
-    for (i = 0; i < input.lineCount; i++)
-    {
-        printf("Line %d: %s", i, input.lineArray[i]);
-    }
 
+    closeFile(input);
+    fclose(inputFile);
     return 0;
+}
+
+
+int getGameResult(char player, char opponent)
+{
+    /*
+    ascii codes:
+    opponent - player:
+            X   Y   Z
+        A  23  24  25
+
+        B  22  23  24
+
+        C  21  22  23
+    >23 win
+    =23 draw
+    <23 loss
+    */
+    
+    int result = (int)(opponent - player);
+
+    if (result > 23)
+        return 1;
+    else if (result < 23)
+        return -1;
+    else
+        return 0;
 }
