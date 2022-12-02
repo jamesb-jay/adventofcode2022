@@ -2,9 +2,11 @@
 
 #define _FILEIO_H
 
+#include <stdio.h>
+
 typedef struct LoadedFile
 {
-    FILE file;
+    FILE *file;
     char **lineArray;
     int lineCount;
 } LoadedFile;

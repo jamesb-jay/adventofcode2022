@@ -2,6 +2,7 @@
 #include <stdio.h>
 #include <string.h>
 #include <unistd.h>
+#include <stdlib.h>
 
 int checkFileReadOK(const char* filepath)
 {
@@ -27,10 +28,13 @@ int countFileLines(FILE *file)
 
 LoadedFile loadFile(FILE *file, int maxLineSize)
 {
-	LoadedFile of = {file, 0, 0};
-
-	char lineBuffer = calloc(maxLineSize, sizeof(char));
+	LoadedFile of;
+	char *lineBuffer = calloc(maxLineSize, sizeof(char));
 	int i = 0;
+
+	of.file = file;
+	of.lineArray = NULL;
+	of.lineCount = 0;
 
     /* Get number of lines in file */
     of.lineCount = countFileLines(file);
@@ -41,9 +45,12 @@ LoadedFile loadFile(FILE *file, int maxLineSize)
     of.lineArray = calloc(of.lineCount , sizeof(char*));
 
     for (i = 0; i < of.lineCount ; i++)
+	{
         of.lineArray[i] = calloc(maxLineSize, sizeof(char));
+	}
 
 	i = 0;
+
 	while (fgets(lineBuffer, maxLineSize, file) != NULL)
 		strcpy(of.lineArray[i++], lineBuffer);
 

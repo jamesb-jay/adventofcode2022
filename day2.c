@@ -26,7 +26,7 @@ int main(int argc, char **argv)
 
     for (i = 0; i < input.lineCount; i++)
     {
-        printf("Line %d: %s\n", i, input.lineArray[i]);
+        printf("Line %d: %s", i, input.lineArray[i]);
     }
 
     return 0;
