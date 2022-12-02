@@ -43,6 +43,9 @@ int main(int argc, char **argv)
 	maxCal = max(caloriesArr, elves);
 	printf("Highest total:\n%d\n", maxCal);
 
+	maxCal = topXSum(caloriesArr, elves, 3);
+	printf("Top 3:\n%d\n", maxCal);
+
 	free(caloriesArr);
 	return 0;
 }
@@ -104,4 +107,27 @@ int max(int *arr, int size)
 			high = arr[i];
 
 	return high;
+}
+
+int cmp(const void *x, const void *y)
+{
+	return *(int*)y - *(int*)x;
+}
+
+int topXSum(int *arr, int size, int x)
+{
+	/*
+	Get the sum of the top x elements of an array
+	Corrupts original array by sorting.
+	*/
+	int sum = 0, i;
+	
+	qsort(arr, size, sizeof(int), cmp);
+
+	for (i = 0; i < x; i++)
+	{
+		sum += arr[i];
+	}
+
+	return sum;
 }
